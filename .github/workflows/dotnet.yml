@@ -25,3 +25,7 @@ jobs:
       
     - name: Restore Nuget Packages
       run: nuget restore LostArkLogger.sln
+      
+    - name: Build Solution
+      run: msbuild LostArkLogger.sln
+    
