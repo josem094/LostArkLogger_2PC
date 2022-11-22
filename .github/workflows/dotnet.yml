@@ -17,10 +17,10 @@ jobs:
 
     steps:
     - name: lost ark logger repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     
     - name: machina repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
       with:
         repository: 'ravahn/machina'
         path: 'machina'
