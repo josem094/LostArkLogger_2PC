@@ -36,11 +36,4 @@ jobs:
       
     - name: Build Solution
       run: msbuild LostArkLogger.sln /t:Clean,Build /p:Configuration=Release
-      
-    - name: Create Release
-      uses: ncipollo/release-action@v1.11.2
-      with:
-        artifacts: "./bin/Release/*.*"
-        draft: true
-        name: Release 
-        token: ${{ secrets.GITHUB_TOKEN }}
+  
