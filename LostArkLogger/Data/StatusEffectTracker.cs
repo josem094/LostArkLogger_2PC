@@ -20,9 +20,9 @@ namespace LostArkLogger
         public void BeforeNewZone()
         {
             // cancel remaining statuseffects so they get added to the old encounter
-            foreach(var statusEffectList in StatusEffectRegistry)
+            foreach (var statusEffectList in StatusEffectRegistry)
             {
-                foreach(var statusEffect in statusEffectList.Value)
+                foreach (var statusEffect in statusEffectList.Value)
                 {
                     var duration = (DateTime.UtcNow - statusEffect.Value.Started);
                     OnStatusEffectEnded?.Invoke(statusEffect.Value, duration);
@@ -77,7 +77,8 @@ namespace LostArkLogger
                 }
                 effectList.TryAdd(statusEffect.InstanceId, statusEffect);
                 OnStatusEffectStarted(statusEffect);
-            } catch(Exception) { }
+            }
+            catch (Exception) { }
         }
 
         public void Add(PKTStatusEffectAddNotify effect)
@@ -130,7 +131,7 @@ namespace LostArkLogger
 
         public void DeathNotify(PKTDeathNotify packet)
         {
-            if(StatusEffectRegistry.TryRemove(packet.TargetId, out var statusEffectList))
+            if (StatusEffectRegistry.TryRemove(packet.TargetId, out var statusEffectList))
             {
                 foreach (var statusEffect in statusEffectList)
                 {
