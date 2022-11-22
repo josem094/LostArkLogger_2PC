@@ -36,6 +36,10 @@ jobs:
       
     - name: Build Solution
       run: msbuild LostArkLogger.sln /t:Clean,Build /p:platform="Any CPU"
+      
+    - uses: actions/download-artifact@v3
+      with:
+        name: Debug.zip
     
     - name: Create Release
       id: create_release
@@ -48,9 +52,7 @@ jobs:
         draft: true
         prerelease: false
         
-    - uses: actions/download-artifact@v3
-      with:
-        name: Debug.zip
+
         
     - uses: alexellis/upload-assets@0.4.0
       env:
