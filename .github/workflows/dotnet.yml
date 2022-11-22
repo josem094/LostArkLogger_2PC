@@ -16,7 +16,14 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: lost ark logger repo
     - uses: actions/checkout@v3
+    
+    - name: machina repo
+    - uses: actions/checkout@v3
+      with:
+        repository: 'ravahn/machina'
+        path: 'machina'
     
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1.3
