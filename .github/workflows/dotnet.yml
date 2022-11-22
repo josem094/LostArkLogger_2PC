@@ -37,10 +37,6 @@ jobs:
     - name: Build Solution
       run: msbuild LostArkLogger.sln /t:Clean,Build /p:platform="Any CPU"
       
-    - uses: actions/download-artifact@v3
-      with:
-        name: Debug.zip
-    
     - name: Create Release
       uses: ncipollo/release-action@v1.11.2
       with:
