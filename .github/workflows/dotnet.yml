@@ -8,6 +8,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,9 +16,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Lost Ark Logger Repository
+      uses: actions/checkout@v3
     
-    - name: setup-msbuild
+    - name: CheckoutMachina Repository
+      uses: actions/checkout@v3
+      with:
+        repository: 'ravahn/machina'
+        path: 'machina'
+    
+    - name: Setup Msbuild
       uses: microsoft/setup-msbuild@v1.1.3
       
     - name: Setup NuGet.exe for use with actions
@@ -27,5 +35,13 @@ jobs:
       run: nuget restore LostArkLogger.sln
       
     - name: Build Solution
-      run: msbuild LostArkLogger.sln /p:Configuration=Release
-    
+      run: msbuild LostArkLogger.sln /t:Clean,Build /p:Configuration=Release
+      
+    - name: Create Release
+      uses: ncipollo/release-action@v1.11.2
+      with:
+        artifacts: "./bin/Release/*.*"
+        draft: true
+        name: Release 
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
