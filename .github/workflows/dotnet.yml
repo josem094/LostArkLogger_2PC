@@ -27,5 +27,5 @@ jobs:
       run: nuget restore LostArkLogger.sln
       
     - name: Build Solution
-      run: msbuild LostArkLogger.sln /p:Configuration=Release
+      run: msbuild mySolution.sln /t:Clean,Build /p:platform="Any CPU"
     
