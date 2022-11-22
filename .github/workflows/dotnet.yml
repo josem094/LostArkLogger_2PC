@@ -51,7 +51,7 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: Debug.zip
-        path: bin/Debug/
+        path: ./bin/Debug/
         
     - uses: alexellis/upload-assets@0.4.0
       env:
