@@ -37,22 +37,6 @@ jobs:
     - name: Build Solution
       run: msbuild LostArkLogger.sln /t:Clean,Build /p:Configuration=Release
       
-    - name: Import PFX
-      shell: powershell
-      run: |
-        $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
-        Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -Encoding Byte
-        $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
-      env:
-        BASE64_PFX: ${{ secrets.CERTIFICATE }}
-        PFX_PASSWORD: ${{ secrets.PASSWORD }}
-
-    - name: Sign exe
-      shell: powershell
-      run: |
-        $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
-        Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath "bin\Release\DpsMeter.exe" -TimestampServer "http://timestamp.digicert.com"
-      
     - name: Create Release
       uses: ncipollo/release-action@v1.11.2
       with:
