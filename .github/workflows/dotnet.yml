@@ -35,7 +35,7 @@ jobs:
       run: nuget restore LostArkLogger.sln
       
     - name: Build Solution
-      run: msbuild LostArkLogger.sln /t:Clean,Build /p:platform="Any CPU";Configuration=Release
+      run: msbuild LostArkLogger.sln /t:Clean,Build /p:Configuration=Release
       
     - name: Import PFX
       shell: powershell
