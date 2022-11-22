@@ -44,3 +44,4 @@ jobs:
         draft: true
         name: Release 
         token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
